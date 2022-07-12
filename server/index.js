@@ -17,7 +17,7 @@ app.get("/api/weather", async (req, res) => {
     try {
         const weatherRes = await axios({
             method: 'get',
-            url: weatherURL,
+            url: weatherURL
         });
         const locationRes = await axios({
             method: 'get',
@@ -32,12 +32,13 @@ app.get("/api/weather", async (req, res) => {
 });
 
 app.get("/api/background", async (req, res) => {
-    const baseURL = `https://api.unsplash.com/photos/random?client_id=${process.env.UNSPLASH_KEY}&orientation=`
+    const baseURL = `https://api.unsplash.com/photos/random?orientation=`
     const orientation = req.query.orientation;
     try {
         const backgroundRes = await axios({
             method: 'get',
-            url: baseURL + orientation
+            url: baseURL + orientation,
+            headers: {Authorization: `Client-ID ${process.env.UNSPLASH_KEY}`}
         });
         res.json(backgroundRes.data);
     }
