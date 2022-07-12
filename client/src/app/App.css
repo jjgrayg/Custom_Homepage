@@ -62,7 +62,11 @@ input[type="text"] {
 }
 
 svg#Capa_1 {
-  margin: 0 5px;
+  margin-right: 5px;
+}
+
+.search a {
+  display: flex;
 }
 
 .todo {
