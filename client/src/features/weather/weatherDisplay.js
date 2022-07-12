@@ -54,9 +54,15 @@ export const WeatherDisplay = () => {
     }, []);
 
     useEffect(() => {
-        if (location.lat && location.lng)   
-            dispatch(fetchWeather(location));
-    }, [location.lat, location.lng]);
+        if (location.lat && location.lng) {
+            const intervalID = setInterval(() => {
+                dispatch(fetchWeather(location));
+            }, 60000);
+            return () => {
+                clearInterval(intervalID);
+            }
+        }
+    }, []);
 
     return (
         <div className='weather-disp'>
