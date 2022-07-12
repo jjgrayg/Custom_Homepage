@@ -108,7 +108,7 @@ svg#Capa_1 {
 .todo p {
   font-size: 17px;
   margin: 5px;
-  margin-top: 18px;
+  margin-top: 25px;
   overflow-wrap: break-word;
 }
 
@@ -323,6 +323,10 @@ main {
   .weather-main img {
     max-width: 26vw;
     max-height: 14vh;
+  }
+
+  .todo {
+    width: 90%;
   }
 }
 
