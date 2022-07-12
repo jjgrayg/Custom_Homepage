@@ -2,6 +2,13 @@ const path = require('path');
 const express = require('express');
 const axios = require('axios');
 require('dotenv').config();
+const fs = require('fs');
+
+const backgroundFolder = './server/background_imgs/';
+
+const getFileArray = async () => {
+    return fs.readdirSync(backgroundFolder);
+}
 
 const apiKey = process.env.API_KEY;
 
@@ -10,6 +17,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.static(path.resolve(__dirname, './background_imgs')));
 
 app.get("/api/weather", async (req, res) => {
     const weatherURL = `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${req.query.lat}&lon=${req.query.lon}&appid=${process.env.WEATHER_KEY}`
@@ -32,19 +40,23 @@ app.get("/api/weather", async (req, res) => {
 });
 
 app.get("/api/background", async (req, res) => {
-    const baseURL = `https://api.unsplash.com/photos/random?orientation=`
-    const orientation = req.query.orientation;
-    try {
-        const backgroundRes = await axios({
-            method: 'get',
-            url: baseURL + orientation,
-            headers: {Authorization: `Client-ID ${process.env.UNSPLASH_KEY}`}
-        });
-        res.json(backgroundRes.data);
-    }
-    catch (err) {
-        console.error(err);
-    }
+    const fileArr = await getFileArray();
+    const randInt = Math.floor(Math.random() * fileArr.length);
+    // const baseURL = `https://api.unsplash.com/photos/random?orientation=`
+    // const orientation = req.query.orientation;
+    // try {
+    //     const backgroundRes = await axios({
+    //         method: 'get',
+    //         url: baseURL + orientation,
+    //         headers: {Authorization: `Client-ID ${process.env.UNSPLASH_KEY}`}
+    //     });
+    //     res.json(backgroundRes.data);
+    // }
+    // catch (err) {
+    //     console.error(err);
+    // }
+    console.log({url: `/${fileArr[randInt]}`});
+    res.json({url: `/${fileArr[randInt]}`})
 });
 
 app.get('/', (req, res) => {

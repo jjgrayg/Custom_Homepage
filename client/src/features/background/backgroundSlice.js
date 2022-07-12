@@ -7,7 +7,7 @@ export const fetchBackground = createAsyncThunk(
         // eslint-disable-next-line no-undef
         const response = await fetch(`/api/background?orientation=` + (isMobile ? 'portrait' : 'landscape')); //
         const json = await response.json();
-        return json.urls.regular;
+        return json.url;
 });
 
 export const backgroundSlice = createSlice({
