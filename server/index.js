@@ -42,20 +42,6 @@ app.get("/api/weather", async (req, res) => {
 app.get("/api/background", async (req, res) => {
     const fileArr = await getFileArray();
     const randInt = Math.floor(Math.random() * fileArr.length);
-    // const baseURL = `https://api.unsplash.com/photos/random?orientation=`
-    // const orientation = req.query.orientation;
-    // try {
-    //     const backgroundRes = await axios({
-    //         method: 'get',
-    //         url: baseURL + orientation,
-    //         headers: {Authorization: `Client-ID ${process.env.UNSPLASH_KEY}`}
-    //     });
-    //     res.json(backgroundRes.data);
-    // }
-    // catch (err) {
-    //     console.error(err);
-    // }
-    console.log({url: `/${fileArr[randInt]}`});
     res.json({url: `/${fileArr[randInt]}`})
 });
 
